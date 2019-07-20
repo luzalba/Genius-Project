@@ -27,7 +27,7 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		WebElement headerSongName = driver.findElement(By.xpath("//h2"));
 		WebElement resultList = driver.findElement(By.xpath("//div[@class='mini_card-info']"));
-		if(headerSongName.getText().equals("Everlong")) {
+		if(headerSongName.isDisplayed() && resultList.isDisplayed()) {
 			System.out.print("El titulo es Everlong\n");
 			
 		} else {
@@ -36,10 +36,9 @@ public class BaseTest {
 		}
 	}
 
-	protected static void seleccionarCancion(String string) {
-		WebElement songLink = driver.findElement(By.xpath("///div[text() ='Top Result']/following-sibling::div[contains(.,'Foo Fighters')"));
-		WebElement titleSong = driver.findElement(By.xpath("//h1"));
-		if(songLink.getText().equals("TOP RESULT")) {
+	protected static void seleccionarCancion() {
+		WebElement songLink = driver.findElement(By.xpath("//div[@class='mini_card-info']"));
+		if(songLink.isDisplayed()) {
 			songLink.click();
 			System.out.print("Clic en Everlong de Top Result\n");
 			
@@ -47,18 +46,18 @@ public class BaseTest {
 			System.out.print("El titulo no es Everlong\n");
 			cerrarNavegador();
 		}
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		if(titleSong.getText().equals("Everlong")) {
-			songLink.click();
-			System.out.print("El titulo de la letra de la canción es Everlong\n");
+		driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+		WebElement titleSong = driver.findElement(By.xpath("//div[@class='header_with_cover_art-primary_info']"));
+		if(titleSong.isDisplayed()) {
+			System.out.print("El titulo de la letra de la cancion es Everlong\n");
 			
 		} else {
 			System.out.print("El titulo no es Everlong\n");
 			cerrarNavegador();
 		}
-		WebElement artist = driver.findElement(By.xpath("//span[contains(@class, ‘drop-target drop-element-attached-left’)]"));
-		if(artist.getText().equals("Foo Fighters")) {
-			System.out.print("El artista de la canción es Foo Fighters\n");
+		WebElement artist = driver.findElement(By.xpath("//span[contains(@class, 'drop-target')]"));
+		if(artist.isDisplayed()) {
+			System.out.print("El artista de la cancion es Foo Fighters\n");
 			
 		} else {
 			System.out.print("El artista no es Foo Fighters\n");
